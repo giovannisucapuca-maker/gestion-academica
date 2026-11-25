@@ -3,8 +3,8 @@
 Aplicación web de una sola página (SPA) para gestionar **usuarios, cursos, matrículas, horarios y asistencia** de una institución educativa, con inicio de sesión mediante **JWT**, rutas protegidas por **guards**, permisos por rol (**admin**, **profesor**, **estudiante**) y **reportes con gráficos**.
 
 > Evaluación final – Desarrollo de Interfaces 3 · Zegel
-> **Integrantes:** Nombre Apellido 1 · Nombre Apellido 2 · Nombre Apellido 3
-
+> **Integrantes:** Giovanni Elviss Sucapuca Hancco · Jhon Villarreal Caleni · Jackelinne Rossmery Pazo Pazo · Karen Sandoval Purizaca
+> **Docente:** Huayamares Carbajal Kevin Christopher
 ## Tecnologías
 
 | Capa | Tecnología |

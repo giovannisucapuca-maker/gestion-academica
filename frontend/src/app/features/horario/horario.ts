@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SlicePipe } from '@angular/common';
+import { DecimalPipe, SlicePipe } from '@angular/common';
 import { HorarioService } from '../../core/services/horario.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Horario } from '../../core/models/horario.model';
@@ -9,7 +9,7 @@ import { DiaSemanaPipe } from '../../shared/pipes/dia-semana-pipe';
 
 @Component({
   selector: 'app-horario',
-  imports: [FormsModule, SlicePipe, HorarioSemanal, DiaSemanaPipe],
+  imports: [FormsModule, SlicePipe, DecimalPipe, HorarioSemanal, DiaSemanaPipe],
   templateUrl: './horario.html',
   styleUrl: './horario.css',
 })

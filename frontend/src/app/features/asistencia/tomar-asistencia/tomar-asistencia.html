@@ -1,0 +1,117 @@
+@if (cursos().length === 0) {
+  <div class="tarjeta"><p class="gris">No tienes cursos asignados.</p></div>
+} @else {
+  <!-- FILTROS -->
+  <div class="tarjeta filtros">
+    <label>
+      Curso
+      <select [ngModel]="cursoId()" (ngModelChange)="cambiarCurso($event)">
+        @for (c of cursos(); track c.id) {
+          <option [ngValue]="c.id">{{ c.nombre }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Fecha
+      <input type="date" [max]="hoy" [ngModel]="fecha()" (ngModelChange)="cambiarFecha($event)" />
+    </label>
+    <div class="dias">
+      <span class="gris">Días de clase:</span>
+      @for (d of diasDeClase(); track d) {
+        <span class="badge dia">{{ d | diaSemana: true }}</span>
+      } @empty {
+        <span class="gris">sin horario</span>
+      }
+    </div>
+  </div>
+
+  <!-- ESTADO DE LA VENTANA DE ASISTENCIA -->
+  @if (ventana(); as v) {
+    <p class="ventana" [class.abierta]="v.abierta">
+      <i class="bi" [class.bi-unlock-fill]="v.abierta" [class.bi-lock-fill]="!v.abierta"></i>
+      {{ v.mensaje }}
+    </p>
+  }
+
+  <!-- CONTADORES -->
+  <div class="contadores">
+    @for (e of estados; track e.valor) {
+      <div class="contador" [class]="'contador ' + e.valor">
+        <i class="bi" [class]="'bi ' + e.icono"></i>
+        <strong>{{ conteo()[e.valor] }}</strong> {{ e.texto }}
+      </div>
+    }
+    <div class="contador pendiente"><i class="bi bi-hourglass"></i> <strong>{{ conteo()['pendiente'] }}</strong> Sin marcar</div>
+  </div>
+
+  <!-- LISTA -->
+  <section class="tarjeta" [class.bloqueada]="!abierta()">
+    <div class="encabezado">
+      <h3><i class="bi bi-clipboard-check"></i> Lista de asistencia</h3>
+      <button class="btn btn-sm btn-outline" (click)="marcarTodos('presente')" [disabled]="!registros().length || !abierta()">
+        <i class="bi bi-check2-all"></i> Todos presentes
+      </button>
+    </div>
+
+    <ul class="lista">
+      @for (r of registros(); track r.estudiante_id) {
+        <li>
+          <div class="avatar">{{ r.estudiante | iniciales }}</div>
+          <div class="nombre">
+            <strong>{{ r.estudiante }}</strong>
+            <small class="gris">{{ r.estudiante_email }}</small>
+          </div>
+          <div class="opciones">
+            @for (e of estados; track e.valor) {
+              <button
+                type="button"
+                [class]="'opcion ' + e.valor"
+                [class.elegida]="r.estado === e.valor"
+                [title]="e.texto"
+                [disabled]="!abierta()"
+                (click)="marcar(r.estudiante_id, e.valor)"
+              >
+                {{ e.letra }}
+              </button>
+            }
+          </div>
+        </li>
+      } @empty {
+        <li class="gris">No hay estudiantes matriculados en este curso.</li>
+      }
+    </ul>
+
+    @if (registros().length && abierta()) {
+      <div class="botones">
+        <button class="btn" (click)="guardar()" [disabled]="guardando()">
+          <i class="bi bi-save"></i> Guardar asistencia
+        </button>
+      </div>
+    }
+  </section>
+
+  <!-- RESUMEN -->
+  @if (resumen().length) {
+    <h3 class="titulo-resumen"><i class="bi bi-bar-chart-line"></i> Resumen del curso</h3>
+    <div class="tabla-contenedor">
+      <table class="tabla">
+        <thead>
+          <tr><th>Estudiante</th><th>Clases</th><th>P</th><th>T</th><th>F</th><th>J</th><th>Asistencia</th></tr>
+        </thead>
+        <tbody>
+          @for (s of resumen(); track s.estudiante_id) {
+            <tr>
+              <td><strong>{{ s.estudiante }}</strong></td>
+              <td>{{ s.total }}</td>
+              <td>{{ s.presentes }}</td>
+              <td>{{ s.tardes }}</td>
+              <td>{{ s.faltas }}</td>
+              <td>{{ s.justificadas }}</td>
+              <td><app-indicador-asistencia [porcentaje]="s.porcentaje" /></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+}

@@ -1,0 +1,59 @@
+<div class="encabezado">
+  <p class="gris">
+    <ng-container *appHasRole="['admin']">Todas las matrículas de la institución</ng-container>
+    <ng-container *appHasRole="['profesor']">Alumnos matriculados en tus cursos</ng-container>
+  </p>
+</div>
+
+<div class="buscador">
+  <i class="bi bi-search"></i>
+  <input placeholder="Buscar por estudiante, correo o curso..." [(ngModel)]="busqueda" (ngModelChange)="pagina.set(1)" />
+</div>
+
+@let resultado = matriculas() | filtro: busqueda() : ['estudiante', 'estudiante_email', 'curso'] | ordenar: orden();
+
+<div class="tabla-contenedor">
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th appOrdenar="estudiante" [(orden)]="orden">Estudiante</th>
+        <th appOrdenar="curso" [(orden)]="orden">Curso</th>
+        <th appOrdenar="creditos" [(orden)]="orden">Créditos</th>
+        <th appOrdenar="fecha" [(orden)]="orden">Fecha</th>
+        <th *appHasRole="['admin']">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (m of resultado | paginar: pagina() : tamanio(); track m.id) {
+        <tr>
+          <td>
+            <div class="celda-usuario">
+              <div class="avatar">{{ m.estudiante | iniciales }}</div>
+              <div>
+                <strong>{{ m.estudiante }}</strong>
+                <small class="gris">{{ m.estudiante_email }}</small>
+              </div>
+            </div>
+          </td>
+          <td>{{ m.curso }}</td>
+          <td>{{ m.creditos }}</td>
+          <td>{{ m.fecha | date: 'short' }}</td>
+          <td *appHasRole="['admin']">
+            <button
+              class="btn btn-sm btn-peligro"
+              title="Anular matrícula"
+              [appConfirmar]="'¿Anular la matrícula de ' + m.estudiante + ' en ' + m.curso + '?'"
+              (confirmado)="anular(m)"
+            >
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5" class="gris">No hay matrículas registradas.</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <app-paginador [total]="resultado.length" [(pagina)]="pagina" [(tamanio)]="tamanio" />
+</div>

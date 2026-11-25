@@ -1,0 +1,70 @@
+@if (usuario(); as u) {
+  <div class="perfil">
+    <!-- Tarjeta de presentación -->
+    <aside class="tarjeta resumen">
+      <div class="portada"></div>
+      <div class="avatar grande">{{ u.nombre | iniciales }}</div>
+      <h2>{{ u.nombre }}</h2>
+      <p class="gris">{{ u.email }}</p>
+      <span [class]="'badge rol-' + u.rol">{{ u.rol | rolLabel: true }}</span>
+      <ul class="detalles">
+        <li><i class="bi bi-hash"></i> Código: {{ u.id }}</li>
+        <li><i class="bi bi-calendar-check"></i> Miembro desde {{ u.creado_en | date: 'longDate' }}</li>
+        <li><i class="bi bi-shield-check"></i> Cuenta {{ u.activo ? 'activa' : 'inactiva' }}</li>
+      </ul>
+    </aside>
+
+    <div class="columna">
+      <!-- Datos personales -->
+      <form class="tarjeta formulario" [formGroup]="formDatos" (ngSubmit)="guardarDatos()">
+        <h3><i class="bi bi-person-lines-fill"></i> Datos personales</h3>
+
+        <label>Nombre completo
+          <input formControlName="nombre" />
+        </label>
+
+        <label>Correo
+          <input type="email" formControlName="email" />
+        </label>
+        @if (formDatos.controls.email.touched && formDatos.controls.email.invalid) {
+          <small class="error">Ingresa un correo válido</small>
+        }
+
+        <div class="botones">
+          <button class="btn" type="submit" [disabled]="guardandoDatos()">
+            <i class="bi bi-check-lg"></i> Guardar cambios
+          </button>
+        </div>
+      </form>
+
+      <!-- Cambiar contraseña -->
+      <form class="tarjeta formulario" [formGroup]="formClave" (ngSubmit)="cambiarClave()">
+        <h3><i class="bi bi-key-fill"></i> Cambiar contraseña</h3>
+
+        <label>Contraseña actual
+          <input type="password" formControlName="actual" />
+        </label>
+
+        <label>Nueva contraseña
+          <input type="password" formControlName="nueva" />
+        </label>
+        @if (formClave.controls.nueva.touched && formClave.controls.nueva.invalid) {
+          <small class="error">Mínimo 6 caracteres</small>
+        }
+
+        <label>Confirmar nueva contraseña
+          <input type="password" formControlName="confirmar" />
+        </label>
+        @if (formClave.controls.confirmar.touched && formClave.hasError('clavesDistintas')) {
+          <small class="error">Las contraseñas no coinciden</small>
+        }
+
+        <div class="botones">
+          <button class="btn" type="submit" [disabled]="guardandoClave()">
+            <i class="bi bi-shield-lock"></i> Actualizar contraseña
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

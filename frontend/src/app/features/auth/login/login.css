@@ -1,0 +1,121 @@
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+.presentacion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px;
+  background: linear-gradient(135deg, #e90056 0%, #7c3aed 100%);
+  color: white;
+}
+.logo {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 32px;
+}
+.presentacion h1 {
+  font-size: 2.4rem;
+}
+.presentacion p {
+  max-width: 420px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+.presentacion ul {
+  margin-top: 24px;
+  padding: 0;
+  list-style: none;
+}
+.presentacion li {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.lado-form {
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: white;
+}
+.tarjeta-login {
+  width: 100%;
+  max-width: 380px;
+  display: grid;
+  gap: 8px;
+}
+.tarjeta-login h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.tarjeta-login label {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.campo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.campo:focus-within {
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(233, 0, 86, 0.15);
+}
+.campo i {
+  color: var(--gris);
+}
+.campo input {
+  flex: 1;
+  padding: 12px 0;
+  border: 0;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+}
+.ver {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.alerta-error {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 14px;
+}
+.btn-bloque {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px;
+  font-size: 15px;
+}
+.girando {
+  display: inline-block;
+  animation: girar 0.8s linear infinite;
+}
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 900px) {
+  .login {
+    grid-template-columns: 1fr;
+  }
+  .presentacion {
+    display: none;
+  }
+}

@@ -1,0 +1,47 @@
+.detalle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+.datos {
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+}
+.datos li {
+  display: grid;
+  grid-template-columns: 22px 90px 1fr;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borde);
+}
+.datos li span {
+  color: var(--gris);
+}
+.alumnos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.alumnos li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borde);
+}
+.alumnos li:last-child {
+  border-bottom: 0;
+}
+.alumnos .avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 12px;
+}
+.alumnos small {
+  display: block;
+}
+.alumnos .fecha {
+  margin-left: auto;
+}

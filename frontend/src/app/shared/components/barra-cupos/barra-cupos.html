@@ -1,0 +1,11 @@
+<div class="barra-cupos" [class]="'barra-cupos ' + nivel()">
+  <div class="texto">
+    <span>{{ inscritos() }}/{{ cupos() }}</span>
+    @if (nivel() === 'lleno') {
+      <small>Lleno</small>
+    }
+  </div>
+  <div class="pista">
+    <div class="relleno" [style.width.%]="porcentaje()"></div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+.indicador {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+}
+.pista {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--borde);
+  overflow: hidden;
+}
+.relleno {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+.valor {
+  min-width: 42px;
+  font-weight: 700;
+  text-align: right;
+}
+small {
+  color: var(--gris);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.bien .relleno { background: var(--exito); }
+.bien .valor { color: var(--exito); }
+.regular .relleno { background: #f59e0b; }
+.regular .valor { color: #d97706; }
+.riesgo .relleno { background: var(--peligro); }
+.riesgo .valor,
+.alerta { color: var(--peligro); font-weight: 600; }

@@ -1,0 +1,69 @@
+<div class="encabezado">
+  <p class="gris">Gestiona los cursos de la institución</p>
+  <a *appHasRole="['admin', 'profesor']" class="btn" routerLink="nuevo">
+    <i class="bi bi-plus-lg"></i> Nuevo curso
+  </a>
+</div>
+
+<div class="buscador">
+  <i class="bi bi-search"></i>
+  <input
+    placeholder="Buscar curso por nombre o descripción..."
+    [(ngModel)]="busqueda"
+    (ngModelChange)="pagina.set(1)"
+  />
+</div>
+
+@if (cargando()) {
+  <p class="gris"><i class="bi bi-hourglass-split"></i> Cargando cursos...</p>
+} @else {
+  <!-- @let guarda un resultado intermedio: filtrados Y ordenados (antes de paginar) -->
+  @let resultado = cursos() | filtro: busqueda() : ['nombre', 'descripcion'] | ordenar: orden();
+
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th appOrdenar="id" [(orden)]="orden">#</th>
+          <th appOrdenar="nombre" [(orden)]="orden">Curso</th>
+          <th appOrdenar="creditos" [(orden)]="orden">Créditos</th>
+          <th appOrdenar="profesor" [(orden)]="orden">Profesor</th>
+          <th appOrdenar="inscritos" [(orden)]="orden">Matriculados</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of resultado | paginar: pagina() : tamanio(); track c.id) {
+          <tr>
+            <td>{{ c.id }}</td>
+            <td><strong>{{ c.nombre }}</strong></td>
+            <td>{{ c.creditos }}</td>
+            <td>{{ c.profesor ?? '—' }}</td>
+            <td><app-barra-cupos [inscritos]="c.inscritos ?? 0" [cupos]="c.cupos" /></td>
+            <td>
+              <div class="acciones">
+                <a class="btn btn-sm btn-outline" [routerLink]="[c.id]" title="Ver"><i class="bi bi-eye"></i></a>
+                <a *appHasRole="['admin', 'profesor']" class="btn btn-sm btn-outline" [routerLink]="[c.id, 'editar']" title="Editar">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <button
+                  *appHasRole="['admin']"
+                  class="btn btn-sm btn-peligro"
+                  title="Eliminar"
+                  [appConfirmar]="'¿Eliminar el curso ' + c.nombre + '?'"
+                  (confirmado)="eliminar(c)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="6" class="gris">No hay cursos que coincidan.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <app-paginador [total]="resultado.length" [(pagina)]="pagina" [(tamanio)]="tamanio" />
+  </div>
+}

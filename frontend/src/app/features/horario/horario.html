@@ -1,0 +1,58 @@
+<div class="encabezado">
+  <p class="gris">
+    @switch (auth.usuario()?.rol) {
+      @case ('estudiante') { Horario de los cursos en los que estás matriculado }
+      @case ('profesor') { Horario de los cursos que dictas }
+      @default { Horario general de la institución }
+    }
+  </p>
+
+  @if (auth.tieneRol(['admin'])) {
+    <select class="filtro" [ngModel]="cursoFiltro()" (ngModelChange)="cursoFiltro.set($event)">
+      <option [ngValue]="0">Todos los cursos</option>
+      @for (c of cursos(); track c.id) {
+        <option [ngValue]="c.id">{{ c.nombre }}</option>
+      }
+    </select>
+  }
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <i class="bi bi-calendar-week icono rosa"></i>
+    <div><span>{{ visibles().length }}</span>Sesiones por semana</div>
+  </div>
+  <div class="stat">
+    <i class="bi bi-clock-history icono azul"></i>
+    <div><span>{{ horasSemanales() }}</span>Horas semanales</div>
+  </div>
+</div>
+
+@if (visibles().length) {
+  <app-horario-semanal [horarios]="visibles()" />
+
+  <h3 class="titulo-lista"><i class="bi bi-list-ul"></i> Detalle</h3>
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr><th>Día</th><th>Hora</th><th>Curso</th><th>Aula</th><th>Profesor</th></tr>
+      </thead>
+      <tbody>
+        @for (h of visibles(); track h.id) {
+          <tr>
+            <td>{{ h.dia | diaSemana }}</td>
+            <td>{{ h.hora_inicio | slice: 0 : 5 }} – {{ h.hora_fin | slice: 0 : 5 }}</td>
+            <td><strong>{{ h.curso }}</strong></td>
+            <td><span class="badge aula">{{ h.aula }}</span></td>
+            <td>{{ h.profesor ?? '—' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <div class="tarjeta vacio">
+    <i class="bi bi-calendar-x"></i>
+    <p class="gris">No hay clases programadas todavía.</p>
+  </div>
+}

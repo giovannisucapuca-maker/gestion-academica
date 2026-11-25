@@ -1,0 +1,67 @@
+<div class="encabezado">
+  <p class="gris">Administra las cuentas y los roles del sistema</p>
+  <a class="btn" routerLink="nuevo"><i class="bi bi-person-plus"></i> Nuevo usuario</a>
+</div>
+
+<div class="buscador">
+  <i class="bi bi-search"></i>
+  <input
+    placeholder="Buscar por nombre, correo o rol..."
+    [(ngModel)]="busqueda"
+    (ngModelChange)="pagina.set(1)"
+  />
+</div>
+
+@let resultado = usuarios() | filtro: busqueda() : ['nombre', 'email', 'rol'] | ordenar: orden();
+
+<div class="tabla-contenedor">
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th appOrdenar="nombre" [(orden)]="orden">Usuario</th>
+        <th appOrdenar="email" [(orden)]="orden">Correo</th>
+        <th appOrdenar="rol" [(orden)]="orden">Rol</th>
+        <th appOrdenar="activo" [(orden)]="orden">Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (u of resultado | paginar: pagina() : tamanio(); track u.id) {
+        <tr>
+          <td>
+            <div class="celda-usuario">
+              <div class="avatar">{{ u.nombre | iniciales }}</div>
+              <strong>{{ u.nombre }}</strong>
+            </div>
+          </td>
+          <td>{{ u.email }}</td>
+          <td><span [class]="'badge rol-' + u.rol">{{ u.rol | rolLabel }}</span></td>
+          <td>
+            @if (u.activo) {
+              <span class="estado activo"><i class="bi bi-circle-fill"></i> Activo</span>
+            } @else {
+              <span class="estado inactivo"><i class="bi bi-circle-fill"></i> Inactivo</span>
+            }
+          </td>
+          <td>
+            <div class="acciones">
+              <a class="btn btn-sm btn-outline" [routerLink]="[u.id, 'editar']" title="Editar"><i class="bi bi-pencil"></i></a>
+              <button
+                class="btn btn-sm btn-peligro"
+                title="Eliminar"
+                [appConfirmar]="'¿Eliminar a ' + u.nombre + '?'"
+                (confirmado)="eliminar(u)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5" class="gris">No hay usuarios que coincidan.</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <app-paginador [total]="resultado.length" [(pagina)]="pagina" [(tamanio)]="tamanio" />
+</div>

@@ -1,0 +1,47 @@
+.paginador {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--borde);
+  font-size: 14px;
+}
+.tamanio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gris);
+}
+.tamanio select {
+  padding: 5px 8px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+}
+.botones-pagina {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+.botones-pagina button {
+  min-width: 34px;
+  height: 34px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+}
+.botones-pagina button:hover:not(:disabled) {
+  border-color: var(--primario);
+  color: var(--primario);
+}
+.botones-pagina button.actual {
+  border-color: var(--primario);
+  background: var(--primario);
+  color: white;
+  font-weight: 700;
+}
+.botones-pagina button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

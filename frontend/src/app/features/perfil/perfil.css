@@ -1,0 +1,56 @@
+.perfil {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.resumen {
+  position: relative;
+  padding-top: 0;
+  text-align: center;
+  overflow: hidden;
+}
+.portada {
+  height: 90px;
+  margin: 0 -22px;
+  background: linear-gradient(135deg, #e90056, #7c3aed);
+}
+.avatar.grande {
+  width: 96px;
+  height: 96px;
+  margin: -48px auto 12px;
+  border: 4px solid white;
+  font-size: 32px;
+}
+.resumen h2 {
+  margin: 0;
+}
+.resumen p {
+  margin: 4px 0 12px;
+}
+.detalles {
+  margin: 20px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--borde);
+  list-style: none;
+  text-align: left;
+  color: var(--gris);
+  font-size: 14px;
+}
+.detalles li {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.columna {
+  display: grid;
+  gap: 22px;
+}
+.columna .formulario {
+  max-width: none;
+}
+@media (max-width: 900px) {
+  .perfil {
+    grid-template-columns: 1fr;
+  }
+}

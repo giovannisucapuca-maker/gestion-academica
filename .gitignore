@@ -1,0 +1,15 @@
+# Dependencias (se reinstalan con npm install)
+node_modules/
+frontend/node_modules/
+
+# Archivos generados por Angular
+frontend/dist/
+frontend/.angular/
+
+# Credenciales reales de MySQL (se sube conexion.ejemplo.php en su lugar)
+api/conexion.php
+
+# Archivos del sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/

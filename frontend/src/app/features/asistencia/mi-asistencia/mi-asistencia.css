@@ -1,0 +1,65 @@
+.cursos {
+  display: grid;
+  gap: 16px;
+}
+.cabecera {
+  display: flex;
+  color: var(--texto);
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.cabecera > div:first-child {
+  flex: 1;
+}
+.cabecera small {
+  display: block;
+}
+.cabecera app-indicador-asistencia {
+  width: 280px;
+}
+.flecha {
+  transition: transform 0.2s;
+}
+.abierto .flecha {
+  transform: rotate(180deg);
+}
+.conteos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.presente { color: var(--exito); }
+.tarde { color: #d97706; }
+.falta { color: var(--peligro); }
+.justificada { color: #2563eb; }
+.detalle {
+  margin: 16px 0 0;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--borde);
+  list-style: none;
+}
+.detalle li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+}
+/* Solo la PRIMERA letra en mayúscula: "lunes 23 de noviembre" → "Lunes 23 de noviembre" */
+.fecha {
+  display: inline-block;
+}
+.fecha::first-letter {
+  text-transform: uppercase;
+}
+.estado {
+  font-weight: 600;
+}

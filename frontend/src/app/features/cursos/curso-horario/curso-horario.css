@@ -1,0 +1,54 @@
+.sesiones {
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+.sesiones li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borde);
+  font-size: 14px;
+}
+.dia {
+  width: 44px;
+  font-weight: 700;
+  color: var(--primario);
+}
+.aula {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+.quitar {
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
+  font-size: 15px;
+  color: var(--peligro);
+}
+.nueva-sesion {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 4px;
+}
+.nueva-sesion .aula-input {
+  grid-column: span 2;
+}
+.nueva-sesion select,
+.nueva-sesion input {
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font: inherit;
+}
+@media (max-width: 700px) {
+  .nueva-sesion {
+    grid-template-columns: 1fr 1fr;
+  }
+  .nueva-sesion .aula-input {
+    grid-column: span 1;
+  }
+}

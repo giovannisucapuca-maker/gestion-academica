@@ -1,0 +1,38 @@
+<h1>{{ id() ? 'Editar usuario' : 'Nuevo usuario' }}</h1>
+
+<form class="tarjeta formulario" [formGroup]="form" (ngSubmit)="guardar()">
+  <label>Nombre completo
+    <input formControlName="nombre" />
+  </label>
+
+  <label>Correo
+    <input type="email" formControlName="email" />
+  </label>
+  @if (form.controls.email.touched && form.controls.email.invalid) {
+    <small class="error">Ingresa un correo válido</small>
+  }
+
+  <label>Contraseña {{ id() ? '(déjala vacía para no cambiarla)' : '' }}
+    <input type="password" formControlName="password" />
+  </label>
+  @if (form.controls.password.touched && form.controls.password.invalid) {
+    <small class="error">Mínimo 6 caracteres</small>
+  }
+
+  <label>Rol
+    <select formControlName="rol">
+      @for (r of roles; track r) {
+        <option [value]="r">{{ r | rolLabel: true }}</option>
+      }
+    </select>
+  </label>
+
+  <label class="check">
+    <input type="checkbox" formControlName="activo" /> Activo
+  </label>
+
+  <div class="botones">
+    <button class="btn" type="submit">Guardar</button>
+    <a class="btn btn-outline" routerLink="/usuarios">Cancelar</a>
+  </div>
+</form>

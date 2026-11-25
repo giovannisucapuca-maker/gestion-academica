@@ -1,0 +1,22 @@
+<div class="paginador">
+  <span class="gris">Mostrando {{ desde() }}–{{ hasta() }} de {{ total() }}</span>
+
+  <label class="tamanio">
+    Filas:
+    <select [ngModel]="tamanio()" (ngModelChange)="cambiarTamanio($event)">
+      @for (opcion of opcionesTamanio; track opcion) {
+        <option [ngValue]="opcion">{{ opcion }}</option>
+      }
+    </select>
+  </label>
+
+  <div class="botones-pagina">
+    <button (click)="irA(1)" [disabled]="pagina() === 1" title="Primera"><i class="bi bi-chevron-double-left"></i></button>
+    <button (click)="irA(pagina() - 1)" [disabled]="pagina() === 1" title="Anterior"><i class="bi bi-chevron-left"></i></button>
+    @for (numero of paginas(); track numero) {
+      <button [class.actual]="numero === pagina()" (click)="irA(numero)">{{ numero }}</button>
+    }
+    <button (click)="irA(pagina() + 1)" [disabled]="pagina() === totalPaginas()" title="Siguiente"><i class="bi bi-chevron-right"></i></button>
+    <button (click)="irA(totalPaginas())" [disabled]="pagina() === totalPaginas()" title="Última"><i class="bi bi-chevron-double-right"></i></button>
+  </div>
+</div>

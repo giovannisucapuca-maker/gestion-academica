@@ -1,0 +1,6 @@
+<!-- Estudiante: se matricula · Admin/Profesor: consultan -->
+@if (auth.tieneRol(['estudiante'])) {
+  <app-mis-matriculas />
+} @else {
+  <app-matricula-lista />
+}

@@ -1,0 +1,330 @@
+/* =========================================================
+   VARIABLES (cambia aquí los colores de toda la app)
+   ========================================================= */
+:root {
+  --primario: #e90056;
+  --primario-oscuro: #c4004a;
+  --primario-suave: #fde7ef;
+  --sidebar: #0f172a;
+  --fondo: #f3f4f6;
+  --texto: #1f2937;
+  --gris: #6b7280;
+  --borde: #e5e7eb;
+  --peligro: #dc2626;
+  --exito: #16a34a;
+  --radio: 14px;
+  --sombra: 0 1px 3px rgba(15, 23, 42, 0.06), 0 6px 20px rgba(15, 23, 42, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+h1 { margin: 0 0 6px; font-size: 1.7rem; }
+h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; font-size: 1.05rem; }
+.gris { color: var(--gris); }
+.error { color: #b00020; font-size: 13px; }
+
+/* =========================================================
+   TARJETAS
+   ========================================================= */
+.tarjeta {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 22px;
+  box-shadow: var(--sombra);
+}
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1px solid var(--primario);
+  border-radius: 10px;
+  background: var(--primario);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn:hover { background: var(--primario-oscuro); }
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-outline { background: white; color: var(--primario); }
+.btn-outline:hover { background: var(--primario-suave); }
+.btn-peligro { background: var(--peligro); border-color: var(--peligro); }
+.btn-peligro:hover { background: #b91c1c; }
+.btn-sm { padding: 6px 10px; font-size: 13px; border-radius: 8px; }
+
+.btn-icono {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+.btn-icono:hover { background: rgba(0, 0, 0, 0.06); }
+
+/* =========================================================
+   AVATAR Y ETIQUETAS
+   ========================================================= */
+.avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e90056, #7c3aed);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+}
+.badge { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.rol-admin { background: #fee2e2; color: #991b1b; }
+.rol-profesor { background: #dbeafe; color: #1e40af; }
+.rol-estudiante { background: #dcfce7; color: #166534; }
+
+/* =========================================================
+   TABLAS
+   ========================================================= */
+.tabla-contenedor {
+  overflow-x: auto;
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+.tabla th, .tabla td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--borde);
+}
+.tabla th {
+  background: #f9fafb;
+  color: var(--gris);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.tabla tbody tr:hover { background: #fafafa; }
+.tabla tbody tr:last-child td { border-bottom: 0; }
+
+/* =========================================================
+   LISTAS, BUSCADOR Y FORMULARIOS
+   ========================================================= */
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.buscador {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 0 14px;
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+}
+.buscador i { color: var(--gris); }
+.buscador input {
+  flex: 1;
+  padding: 12px 0;
+  border: 0;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+}
+.acciones, .botones { display: flex; gap: 8px; flex-wrap: wrap; }
+.botones { margin-top: 14px; }
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 620px;
+}
+.formulario label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.formulario label.check { flex-direction: row; align-items: center; gap: 8px; }
+.formulario input, .formulario select, .formulario textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  font: inherit;
+  font-weight: normal;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.formulario input:focus, .formulario select:focus, .formulario textarea:focus {
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(233, 0, 86, 0.15);
+}
+.formulario input.ng-invalid.ng-touched { border-color: var(--peligro); }
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+.bienvenida { margin-bottom: 22px; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  color: var(--gris);
+  font-size: 14px;
+}
+.stat span {
+  display: block;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--texto);
+}
+.icono {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  font-size: 24px;
+}
+.rosa { background: var(--primario-suave); color: var(--primario); }
+.verde { background: #dcfce7; color: var(--exito); }
+.azul { background: #dbeafe; color: #2563eb; }
+.morado { background: #ede9fe; color: #7c3aed; }
+.naranja { background: #ffedd5; color: #ea580c; }
+
+.lista-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+.tarjeta-curso {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+.tarjeta-curso .franja {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, #e90056, #7c3aed);
+}
+.tarjeta-curso p { margin: 0; font-size: 14px; }
+.tarjeta-curso .meta {
+  display: flex;
+  gap: 14px;
+  margin: 8px 0;
+  color: var(--gris);
+  font-size: 13px;
+}
+.tarjeta-curso .btn { align-self: flex-start; }
+
+/* =========================================================
+   PÁGINAS 403 / 404
+   ========================================================= */
+.pagina-estado { text-align: center; padding: 60px 16px; }
+.pagina-estado h1 { font-size: 5rem; color: var(--primario); }
+
+/* =========================================================
+   SWEETALERT2 con el estilo de la app
+   ========================================================= */
+.swal2-popup { border-radius: 16px !important; font-family: inherit !important; }
+
+/* =========================================================
+   COLUMNAS ORDENABLES (directiva appOrdenar)
+   ========================================================= */
+th.ordenable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+th.ordenable:hover {
+  color: var(--primario);
+}
+th.ordenable::after {
+  content: '⇅';
+  margin-left: 6px;
+  opacity: 0.35;
+}
+th.ordenado {
+  color: var(--primario);
+}
+th.ordenado[data-direccion='asc']::after {
+  content: '↑';
+  opacity: 1;
+}
+th.ordenado[data-direccion='desc']::after {
+  content: '↓';
+  opacity: 1;
+}
+
+/* =========================================================
+   IMPRESIÓN (botón "Imprimir / PDF" de Reportes)
+   ========================================================= */
+@media print {
+  .sidebar,
+  .topbar .boton-menu,
+  .no-imprimir {
+    display: none !important;
+  }
+  .principal {
+    margin-left: 0 !important;
+  }
+  body {
+    background: white;
+  }
+  .tarjeta,
+  .stat,
+  .tabla-contenedor {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}

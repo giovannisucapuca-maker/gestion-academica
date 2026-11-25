@@ -1,0 +1,120 @@
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.filtros label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.filtros select,
+.filtros input {
+  min-width: 220px;
+  padding: 9px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  font: inherit;
+  font-weight: normal;
+}
+.dias {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 14px;
+}
+.dia {
+  background: var(--primario-suave);
+  color: var(--primario);
+}
+.ventana {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-weight: 600;
+}
+.ventana.abierta {
+  background: #dcfce7;
+  color: #166534;
+}
+.bloqueada .opciones {
+  opacity: 0.5;
+}
+.contadores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.contador {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--borde);
+  font-size: 14px;
+}
+.contador.presente i { color: var(--exito); }
+.contador.tarde i { color: #d97706; }
+.contador.falta i { color: var(--peligro); }
+.contador.justificada i { color: #2563eb; }
+.contador.pendiente i { color: var(--gris); }
+
+.lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lista li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--borde);
+}
+.nombre {
+  flex: 1;
+}
+.nombre small {
+  display: block;
+}
+.opciones {
+  display: flex;
+  gap: 6px;
+}
+.opcion {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  background: white;
+  font-weight: 700;
+  color: var(--gris);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.opcion:hover:not(:disabled) {
+  border-color: currentColor;
+}
+.opcion:disabled {
+  cursor: not-allowed;
+}
+.opcion.presente.elegida { background: var(--exito); border-color: var(--exito); color: white; }
+.opcion.tarde.elegida { background: #f59e0b; border-color: #f59e0b; color: white; }
+.opcion.falta.elegida { background: var(--peligro); border-color: var(--peligro); color: white; }
+.opcion.justificada.elegida { background: #2563eb; border-color: #2563eb; color: white; }
+.titulo-resumen {
+  margin: 26px 0 14px;
+}

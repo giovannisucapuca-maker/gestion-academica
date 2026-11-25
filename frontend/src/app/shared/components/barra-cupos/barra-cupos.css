@@ -1,0 +1,31 @@
+.barra-cupos {
+  min-width: 110px;
+}
+.texto {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.texto small {
+  color: var(--peligro);
+}
+.pista {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--borde);
+  overflow: hidden;
+}
+.relleno {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--exito);
+  transition: width 0.3s ease;
+}
+.alto .relleno {
+  background: #f59e0b;
+}
+.lleno .relleno {
+  background: var(--peligro);
+}

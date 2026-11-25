@@ -1,0 +1,82 @@
+<div class="stats">
+  <div class="stat">
+    <i class="bi bi-journal-check icono rosa"></i>
+    <div><span>{{ misMatriculas().length }}</span>Cursos matriculados</div>
+  </div>
+  <div class="stat">
+    <i class="bi bi-award-fill icono morado"></i>
+    <div><span>{{ totalCreditos() }}</span>Créditos acumulados</div>
+  </div>
+  <div class="stat">
+    <i class="bi bi-collection icono azul"></i>
+    <div><span>{{ disponibles().length }}</span>Cursos disponibles</div>
+  </div>
+</div>
+
+<!-- MIS CURSOS -->
+<section class="tarjeta seccion">
+  <h3><i class="bi bi-journal-check"></i> Mis cursos matriculados</h3>
+
+  @if (misMatriculas().length === 0) {
+    <p class="gris">Todavía no te has matriculado en ningún curso. Elige uno de la lista de abajo 👇</p>
+  } @else {
+    <div class="tabla-contenedor">
+      <table class="tabla">
+        <thead>
+          <tr><th>Curso</th><th>Créditos</th><th>Fecha de matrícula</th><th></th></tr>
+        </thead>
+        <tbody>
+          @for (m of misMatriculas(); track m.id) {
+            <tr>
+              <td><a [routerLink]="['/cursos', m.curso_id]"><strong>{{ m.curso }}</strong></a></td>
+              <td>{{ m.creditos }}</td>
+              <td>{{ m.fecha | date: 'medium' }}</td>
+              <td>
+                <button
+                  class="btn btn-sm btn-outline"
+                  [appConfirmar]="'¿Anular tu matrícula en ' + m.curso + '?'"
+                  (confirmado)="anular(m)"
+                >
+                  <i class="bi bi-x-circle"></i> Anular
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
+
+<!-- CATÁLOGO -->
+<h3 class="titulo-catalogo"><i class="bi bi-collection"></i> Cursos disponibles</h3>
+<div class="lista-cards">
+  @for (c of disponibles(); track c.id) {
+    <div class="tarjeta tarjeta-curso">
+      <div class="franja"></div>
+      <strong>{{ c.nombre }}</strong>
+      <p class="gris">{{ c.descripcion }}</p>
+      <div class="meta">
+        <span><i class="bi bi-award"></i> {{ c.creditos }} créditos</span>
+        <span><i class="bi bi-person-video3"></i> {{ c.profesor ?? 'Sin profesor' }}</span>
+      </div>
+      <app-barra-cupos [inscritos]="c.inscritos ?? 0" [cupos]="c.cupos" />
+      <button
+        class="btn btn-sm"
+        [disabled]="estaLleno(c)"
+        [appConfirmar]="'¿Matricularte en ' + c.nombre + '?'"
+        (confirmado)="matricular(c)"
+      >
+        @if (estaLleno(c)) {
+          <i class="bi bi-slash-circle"></i> Sin cupos
+        } @else {
+          <i class="bi bi-plus-circle"></i> Matricularme
+        }
+      </button>
+    </div>
+  } @empty {
+    @if (!cargando()) {
+      <p class="gris">¡Ya estás matriculado en todos los cursos! 🎉</p>
+    }
+  }
+</div>

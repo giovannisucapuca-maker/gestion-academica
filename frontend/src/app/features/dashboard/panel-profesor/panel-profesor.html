@@ -1,0 +1,17 @@
+<h3><i class="bi bi-journal-bookmark"></i> Cursos a tu cargo</h3>
+<div class="lista-cards">
+  @for (c of misCursos$ | async; track c.id) {
+    <div class="tarjeta tarjeta-curso">
+      <div class="franja"></div>
+      <strong>{{ c.nombre }}</strong>
+      <p class="gris">{{ c.descripcion }}</p>
+      <div class="meta">
+        <span><i class="bi bi-award"></i> {{ c.creditos }} créditos</span>
+        <span><i class="bi bi-people"></i> {{ c.cupos }} cupos</span>
+      </div>
+      <a class="btn btn-sm btn-outline" [routerLink]="['/cursos', c.id, 'editar']"><i class="bi bi-pencil"></i> Editar</a>
+    </div>
+  } @empty {
+    <p class="gris">Aún no tienes cursos asignados.</p>
+  }
+</div>

@@ -1,0 +1,33 @@
+<div class="stats">
+  <div class="stat">
+    <i class="bi bi-journal-check icono rosa"></i>
+    <div><span>{{ misCursos().length }}</span>Cursos matriculados</div>
+  </div>
+  <div class="stat">
+    <i class="bi bi-award-fill icono morado"></i>
+    <div><span>{{ creditos() }}</span>Créditos del ciclo</div>
+  </div>
+</div>
+
+<div class="encabezado">
+  <h3><i class="bi bi-journal-bookmark"></i> Mis cursos</h3>
+  <a class="btn btn-sm" routerLink="/matriculas"><i class="bi bi-journal-plus"></i> Matricularme</a>
+</div>
+
+<div class="lista-cards">
+  @for (m of misCursos(); track m.id) {
+    <div class="tarjeta tarjeta-curso">
+      <div class="franja"></div>
+      <strong>{{ m.curso }}</strong>
+      <div class="meta">
+        <span><i class="bi bi-award"></i> {{ m.creditos }} créditos</span>
+      </div>
+      <a class="btn btn-sm btn-outline" [routerLink]="['/cursos', m.curso_id]"><i class="bi bi-eye"></i> Ver curso</a>
+    </div>
+  } @empty {
+    <div class="tarjeta">
+      <p class="gris">Aún no estás matriculado en ningún curso.</p>
+      <a class="btn" routerLink="/matriculas"><i class="bi bi-journal-plus"></i> Ver cursos disponibles</a>
+    </div>
+  }
+</div>

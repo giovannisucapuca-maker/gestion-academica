@@ -1,0 +1,47 @@
+.stats {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.graficos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 18px;
+}
+.graficos h3 {
+  margin-bottom: 2px;
+}
+.subtitulo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 14px;
+  font-size: 13px;
+}
+.muestra {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+.muestra.critico {
+  background: #d03b3b;
+}
+.muestra.normal {
+  background: #2a78d6;
+}
+.vacio {
+  padding: 40px 0;
+  text-align: center;
+}
+.titulo-riesgo {
+  margin: 26px 0 14px;
+  color: var(--peligro);
+}
+.correo {
+  display: block;
+  font-size: 12px;
+}
+@media (max-width: 900px) {
+  .graficos {
+    grid-template-columns: 1fr;
+  }
+}

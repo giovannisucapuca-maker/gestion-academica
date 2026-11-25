@@ -1,0 +1,12 @@
+<div class="indicador" [class]="'indicador ' + nivel()">
+  @if (porcentaje() === null) {
+    <span class="valor">—</span>
+    <small>Sin registros</small>
+  } @else {
+    <div class="pista"><div class="relleno" [style.width.%]="porcentaje()"></div></div>
+    <span class="valor">{{ porcentaje() }}%</span>
+    @if (nivel() === 'riesgo') {
+      <small class="alerta"><i class="bi bi-exclamation-triangle-fill"></i> En riesgo</small>
+    }
+  }
+</div>

@@ -1,0 +1,22 @@
+<div class="stats">
+  <div class="stat">
+    <i class="bi bi-people-fill icono rosa"></i>
+    <div><span>{{ totalUsuarios() }}</span>Usuarios registrados</div>
+  </div>
+  <div class="stat">
+    <i class="bi bi-person-check-fill icono verde"></i>
+    <div><span>{{ activos() }}</span>Usuarios activos</div>
+  </div>
+  <div class="stat">
+    <i class="bi bi-journal-bookmark-fill icono azul"></i>
+    <div><span>{{ totalCursos() }}</span>Cursos</div>
+  </div>
+</div>
+
+<div class="tarjeta">
+  <h3><i class="bi bi-lightning-charge"></i> Accesos rápidos</h3>
+  <div class="botones">
+    <a class="btn" routerLink="/usuarios/nuevo"><i class="bi bi-person-plus"></i> Nuevo usuario</a>
+    <a class="btn btn-outline" routerLink="/cursos/nuevo"><i class="bi bi-plus-circle"></i> Nuevo curso</a>
+  </div>
+</div>

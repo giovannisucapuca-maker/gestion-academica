@@ -1,0 +1,65 @@
+:host {
+  display: block;
+  overflow-x: auto;
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+.calendario {
+  display: grid;
+  grid-template-columns: 64px repeat(6, minmax(130px, 1fr));
+  grid-template-rows: 44px repeat(30, 28px);
+  min-width: 860px;
+  position: relative;
+}
+.esquina,
+.cabecera {
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid var(--borde);
+  background: #f9fafb;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gris);
+  position: sticky;
+  top: 0;
+}
+.esquina {
+  grid-column: 1;
+}
+.hora {
+  grid-column: 1;
+  padding: 0 8px;
+  font-size: 11px;
+  color: var(--gris);
+  text-align: right;
+  transform: translateY(-7px);
+}
+.linea {
+  grid-column: 2 / -1;
+  border-top: 1px solid #f1f1f4;
+}
+.bloque {
+  margin: 2px 4px;
+  padding: 6px 8px;
+  border-left: 4px solid var(--color);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color) 12%, white);
+  color: var(--texto);
+  font-size: 12px;
+  overflow: hidden;
+  z-index: 1;
+}
+.bloque strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--color);
+  font-size: 13px;
+  line-height: 1.2;
+}
+.bloque span {
+  display: block;
+  color: var(--gris);
+}

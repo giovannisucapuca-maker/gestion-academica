@@ -1,0 +1,47 @@
+@if (curso$ | async; as c) {
+  <div class="detalle">
+    <article class="tarjeta tarjeta-curso">
+      <div class="franja"></div>
+      <h1>{{ c.nombre }}</h1>
+      <p class="gris">{{ c.descripcion }}</p>
+
+      <ul class="datos">
+        <li><i class="bi bi-award"></i> <span>Créditos</span> <strong>{{ c.creditos }}</strong></li>
+        <li><i class="bi bi-person-video3"></i> <span>Profesor</span> <strong>{{ c.profesor ?? 'Sin asignar' }}</strong></li>
+        <li><i class="bi bi-people"></i> <span>Cupos</span> <app-barra-cupos [inscritos]="c.inscritos ?? 0" [cupos]="c.cupos" /></li>
+      </ul>
+
+      <div class="botones">
+        <a class="btn btn-outline" routerLink="/cursos"><i class="bi bi-arrow-left"></i> Volver</a>
+        <a *appHasRole="['admin', 'profesor']" class="btn" [routerLink]="['/cursos', c.id, 'editar']">
+          <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a *appHasRole="['estudiante']" class="btn" routerLink="/matriculas">
+          <i class="bi bi-journal-plus"></i> Ir a matrículas
+        </a>
+      </div>
+    </article>
+
+    <app-curso-horario [cursoId]="c.id" [puedeGestionar]="puedeGestionar(c)" />
+
+    @if (alumnos$ | async; as alumnos) {
+      <section class="tarjeta">
+        <h3><i class="bi bi-people-fill"></i> Alumnos matriculados ({{ alumnos.length }})</h3>
+        <ul class="alumnos">
+          @for (a of alumnos; track a.id) {
+            <li>
+              <div class="avatar">{{ a.estudiante | iniciales }}</div>
+              <div>
+                <strong>{{ a.estudiante }}</strong>
+                <small class="gris">{{ a.estudiante_email }}</small>
+              </div>
+              <small class="gris fecha">{{ a.fecha | date: 'shortDate' }}</small>
+            </li>
+          } @empty {
+            <li class="gris">Aún no hay alumnos matriculados.</li>
+          }
+        </ul>
+      </section>
+    }
+  </div>
+}

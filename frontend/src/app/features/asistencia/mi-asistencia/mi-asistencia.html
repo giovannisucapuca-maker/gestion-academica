@@ -1,0 +1,38 @@
+<p class="gris">Tu asistencia en cada curso. Con menos de 70% estás en riesgo de desaprobar por inasistencia.</p>
+
+<div class="cursos">
+  @for (r of resumen(); track r.curso_id) {
+    <article class="tarjeta curso" [class.abierto]="cursoAbierto() === r.curso_id">
+      <button class="cabecera" (click)="alternar(r.curso_id!)">
+        <div>
+          <strong>{{ r.curso }}</strong>
+          <small class="gris">{{ r.total }} clases registradas</small>
+        </div>
+        <app-indicador-asistencia [porcentaje]="r.porcentaje" />
+        <i class="bi bi-chevron-down flecha"></i>
+      </button>
+
+      <div class="conteos">
+        <span class="presente"><i class="bi bi-check-circle-fill"></i> {{ r.presentes }} presentes</span>
+        <span class="tarde"><i class="bi bi-clock-fill"></i> {{ r.tardes }} tardanzas</span>
+        <span class="falta"><i class="bi bi-x-circle-fill"></i> {{ r.faltas }} faltas</span>
+        <span class="justificada"><i class="bi bi-file-earmark-medical-fill"></i> {{ r.justificadas }} justificadas</span>
+      </div>
+
+      @if (cursoAbierto() === r.curso_id) {
+        <ul class="detalle">
+          @for (d of detalle(); track d.fecha) {
+            <li>
+              <span class="fecha">{{ d.fecha + 'T00:00' | date: 'EEEE d \'de\' MMMM' }}</span>
+              <span [class]="'estado ' + d.estado"><i class="bi" [class]="'bi ' + info(d.estado)?.icono"></i> {{ info(d.estado)?.texto }}</span>
+            </li>
+          } @empty {
+            <li class="gris">Aún no hay asistencias registradas.</li>
+          }
+        </ul>
+      }
+    </article>
+  } @empty {
+    <div class="tarjeta"><p class="gris">No estás matriculado en ningún curso.</p></div>
+  }
+</div>

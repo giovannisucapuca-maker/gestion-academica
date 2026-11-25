@@ -1,0 +1,8 @@
+<div class="bienvenida">
+  <div>
+    <h1>Hola, {{ auth.usuario()?.nombre }} 👋</h1>
+    <p class="gris">Ingresaste como {{ auth.usuario()?.rol | rolLabel: true }}</p>
+  </div>
+</div>
+
+<ng-container *ngComponentOutlet="panel()" />

@@ -1,0 +1,107 @@
+@if (datos(); as d) {
+  <div class="encabezado">
+    <p class="gris">Generado el {{ generado.toLocaleString('es-PE') }}</p>
+    <div class="botones no-imprimir">
+      <button class="btn btn-outline" (click)="exportarCsv()" [disabled]="!d.en_riesgo.length">
+        <i class="bi bi-filetype-csv"></i> Exportar en riesgo
+      </button>
+      <button class="btn" (click)="imprimir()"><i class="bi bi-printer"></i> Imprimir / PDF</button>
+    </div>
+  </div>
+
+  <!-- INDICADORES -->
+  <div class="stats">
+    <div class="stat">
+      <i class="bi bi-mortarboard-fill icono rosa"></i>
+      <div><span>{{ d.totales.estudiantes }}</span>Estudiantes</div>
+    </div>
+    <div class="stat">
+      <i class="bi bi-person-video3 icono morado"></i>
+      <div><span>{{ d.totales.profesores }}</span>Profesores</div>
+    </div>
+    <div class="stat">
+      <i class="bi bi-journal-bookmark-fill icono azul"></i>
+      <div><span>{{ d.totales.cursos }}</span>Cursos</div>
+    </div>
+    <div class="stat">
+      <i class="bi bi-journal-check icono naranja"></i>
+      <div><span>{{ d.totales.matriculas }}</span>Matrículas</div>
+    </div>
+    <div class="stat">
+      <i class="bi bi-clipboard-check icono verde"></i>
+      <div>
+        <span>{{ d.totales.asistencia_promedio ?? '—' }}{{ d.totales.asistencia_promedio !== null ? '%' : '' }}</span>
+        Asistencia promedio
+      </div>
+    </div>
+  </div>
+
+  <!-- GRÁFICOS -->
+  <div class="graficos">
+    <section class="tarjeta">
+      <h3><i class="bi bi-bar-chart-fill"></i> Ocupación de cursos</h3>
+      <p class="gris subtitulo">% de cupos usados · los 10 cursos con más matriculados</p>
+      @if (graficoOcupacion(); as config) {
+        <app-grafico [config]="config" [alto]="300" />
+      }
+    </section>
+
+    <section class="tarjeta">
+      <h3><i class="bi bi-graph-up"></i> Matrículas por día</h3>
+      <p class="gris subtitulo">Últimos 14 días</p>
+      @if (graficoMatriculas(); as config) {
+        <app-grafico [config]="config" [alto]="300" />
+      }
+    </section>
+
+    <section class="tarjeta">
+      <h3><i class="bi bi-clipboard-data"></i> Asistencia por estado</h3>
+      <p class="gris subtitulo">Todos los registros de la institución</p>
+      @if (graficoEstados(); as config) {
+        <app-grafico [config]="config" [alto]="280" />
+      }
+    </section>
+
+    <section class="tarjeta">
+      <h3><i class="bi bi-percent"></i> Asistencia promedio por curso</h3>
+      <p class="gris subtitulo">
+        <span class="muestra critico"></span> debajo de 70% (en riesgo) ·
+        <span class="muestra normal"></span> 70% o más
+      </p>
+      @if (d.asistencia_por_curso.length) {
+        @if (graficoAsistenciaCurso(); as config) {
+          <app-grafico [config]="config" [alto]="280" />
+        }
+      } @else {
+        <p class="gris vacio">Aún no hay asistencias registradas.</p>
+      }
+    </section>
+  </div>
+
+  <!-- ESTUDIANTES EN RIESGO -->
+  <h3 class="titulo-riesgo"><i class="bi bi-exclamation-triangle-fill"></i> Estudiantes en riesgo por inasistencia ({{ d.en_riesgo.length }})</h3>
+  <div class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr><th>Estudiante</th><th>Curso</th><th>Faltas</th><th>Asistencia</th></tr>
+      </thead>
+      <tbody>
+        @for (r of d.en_riesgo; track r.email + r.curso) {
+          <tr>
+            <td>
+              <strong>{{ r.estudiante }}</strong>
+              <small class="gris correo">{{ r.email }}</small>
+            </td>
+            <td>{{ r.curso }}</td>
+            <td>{{ r.faltas }}</td>
+            <td><app-indicador-asistencia [porcentaje]="r.porcentaje" /></td>
+          </tr>
+        } @empty {
+          <tr><td colspan="4" class="gris">🎉 Ningún estudiante está en riesgo.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <p class="gris"><i class="bi bi-hourglass-split"></i> Generando reporte...</p>
+}

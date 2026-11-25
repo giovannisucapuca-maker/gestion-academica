@@ -1,0 +1,77 @@
+<div class="app" [class.menu-abierto]="menuAbierto()">
+  <!-- ========== MENÚ LATERAL ========== -->
+  <aside class="sidebar">
+    <div class="marca">
+      <i class="bi bi-mortarboard-fill"></i>
+      <div>
+        <strong>Gestión</strong>
+        <small>Académica</small>
+      </div>
+    </div>
+
+    <nav>
+      <p class="seccion">Principal</p>
+      <a routerLink="/dashboard" routerLinkActive="activo" (click)="cerrarMenu()">
+        <i class="bi bi-grid-1x2-fill"></i> Inicio
+      </a>
+      <a routerLink="/cursos" routerLinkActive="activo" (click)="cerrarMenu()">
+        <i class="bi bi-journal-bookmark-fill"></i> Cursos
+      </a>
+      <a routerLink="/matriculas" routerLinkActive="activo" (click)="cerrarMenu()">
+        <i class="bi bi-journal-check"></i> Matrículas
+      </a>
+      <a routerLink="/horario" routerLinkActive="activo" (click)="cerrarMenu()">
+        <i class="bi bi-calendar-week"></i> Horario
+      </a>
+      <a routerLink="/asistencia" routerLinkActive="activo" (click)="cerrarMenu()">
+        <i class="bi bi-clipboard-check"></i> Asistencia
+      </a>
+
+      <ng-container *appHasRole="['admin']">
+        <p class="seccion">Administración</p>
+        <a routerLink="/usuarios" routerLinkActive="activo" (click)="cerrarMenu()">
+          <i class="bi bi-people-fill"></i> Usuarios
+        </a>
+        <a routerLink="/reportes" routerLinkActive="activo" (click)="cerrarMenu()">
+          <i class="bi bi-bar-chart-line-fill"></i> Reportes
+        </a>
+      </ng-container>
+
+      <p class="seccion">Cuenta</p>
+      <a routerLink="/perfil" routerLinkActive="activo" (click)="cerrarMenu()">
+        <i class="bi bi-person-circle"></i> Mi perfil
+      </a>
+    </nav>
+
+    @if (auth.usuario(); as usuario) {
+      <div class="sidebar-pie">
+        <a class="avatar" routerLink="/perfil" title="Mi perfil" (click)="cerrarMenu()">{{ usuario.nombre | iniciales }}</a>
+        <div class="datos">
+          <strong>{{ usuario.nombre }}</strong>
+          <small>{{ usuario.rol | rolLabel }}</small>
+        </div>
+        <button class="btn-icono" title="Cerrar sesión" (click)="auth.logout()">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      </div>
+    }
+  </aside>
+
+  <!-- Fondo oscuro para cerrar el menú en celulares -->
+  <div class="velo" (click)="cerrarMenu()"></div>
+
+  <!-- ========== CONTENIDO ========== -->
+  <div class="principal">
+    <header class="topbar">
+      <button class="btn-icono boton-menu" (click)="alternarMenu()">
+        <i class="bi bi-list"></i>
+      </button>
+      <h2>{{ titulo() }}</h2>
+      <span class="fecha"><i class="bi bi-calendar3"></i> {{ hoy | date: 'fullDate' }}</span>
+    </header>
+
+    <main class="contenido">
+      <router-outlet />
+    </main>
+  </div>
+</div>

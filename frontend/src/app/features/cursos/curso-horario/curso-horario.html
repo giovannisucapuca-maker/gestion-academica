@@ -1,0 +1,39 @@
+<section class="tarjeta">
+  <h3><i class="bi bi-calendar-week"></i> Horario del curso</h3>
+
+  <ul class="sesiones">
+    @for (s of sesiones(); track s.id) {
+      <li>
+        <span class="dia">{{ s.dia | diaSemana: true }}</span>
+        <span><i class="bi bi-clock"></i> {{ s.hora_inicio | slice: 0 : 5 }} – {{ s.hora_fin | slice: 0 : 5 }}</span>
+        <span class="badge aula"><i class="bi bi-geo-alt"></i> {{ s.aula }}</span>
+        @if (puedeGestionar()) {
+          <button
+            class="btn-icono quitar"
+            title="Eliminar sesión"
+            [appConfirmar]="'¿Eliminar la sesión del ' + (s.dia | diaSemana) + '?'"
+            (confirmado)="eliminar(s)"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        }
+      </li>
+    } @empty {
+      <li class="gris">Este curso aún no tiene horario.</li>
+    }
+  </ul>
+
+  @if (puedeGestionar()) {
+    <form class="nueva-sesion" [formGroup]="form" (ngSubmit)="agregar()">
+      <select formControlName="dia">
+        @for (d of dias; track d; let i = $index) {
+          <option [ngValue]="i + 1">{{ d }}</option>
+        }
+      </select>
+      <input type="time" formControlName="hora_inicio" min="07:00" max="22:00" />
+      <input type="time" formControlName="hora_fin" min="07:00" max="22:00" />
+      <input class="aula-input" formControlName="aula" placeholder="Aula (ej. A101)" />
+      <button class="btn btn-sm" type="submit"><i class="bi bi-plus-lg"></i> Agregar</button>
+    </form>
+  }
+</section>

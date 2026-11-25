@@ -1,0 +1,6 @@
+<!-- Estudiante: consulta su asistencia · Profesor/Admin: toman lista -->
+@if (auth.tieneRol(['estudiante'])) {
+  <app-mi-asistencia />
+} @else {
+  <app-tomar-asistencia />
+}

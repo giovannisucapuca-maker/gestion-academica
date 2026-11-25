@@ -1,0 +1,25 @@
+<div class="calendario">
+  <div class="esquina"></div>
+  @for (dia of dias; track dia; let i = $index) {
+    <div class="cabecera" [style.grid-column]="i + 2">{{ dia }}</div>
+  }
+
+  @for (hora of horas; track hora; let i = $index) {
+    <div class="hora" [style.grid-row]="i * 2 + 2">{{ hora }}:00</div>
+    <div class="linea" [style.grid-row]="i * 2 + 2"></div>
+  }
+
+  @for (b of bloques(); track b.horario.id) {
+    <div
+      class="bloque"
+      [style.grid-column]="b.columna"
+      [style.grid-row]="b.filaInicio + ' / ' + b.filaFin"
+      [style.--color]="b.color"
+      [title]="b.horario.curso + ' · ' + b.horario.aula"
+    >
+      <strong>{{ b.horario.curso }}</strong>
+      <span><i class="bi bi-clock"></i> {{ b.horario.hora_inicio | slice: 0 : 5 }} – {{ b.horario.hora_fin | slice: 0 : 5 }}</span>
+      <span><i class="bi bi-geo-alt"></i> {{ b.horario.aula }}</span>
+    </div>
+  }
+</div>
